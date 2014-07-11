@@ -5,13 +5,13 @@
     <style type="text/css">
         body {background:#eee;}
         .tabbedTop ul {margin:0;}
-		.tabbed {display:block; width:300px; height:400px; border: 1px solid #ccc;}
+		.tabbed {display:block; width:300px; border: 1px solid #ccc;}
 		.tabbed div {display:block; width:300px; height:400px;}
     </style>
 </head>
 <body>
 	
-<div class="tabbed">
+<div class="tabbed" data-selector=".goat">
 	<div>Tab1</div>
 	<div>Tab2</div>
 	<div>Tab3</div>
@@ -19,7 +19,7 @@
 
 <div id="idfortabs">
 	<div>Tab1</div>
-	<div>Tab2</div>
+	<div data-class="goat">Tab2</div>
 	<div>Tab3</div>
 </div>
 
@@ -34,7 +34,8 @@
 <script type="text/javascript">
 $(function(){
 	$('#idfortabs').Tabbed({
-		tabselector:'>div'
+		tabSelector:'>div',
+        animateOnLoad:true
 	});
 });
 </script>
