@@ -1,0 +1,16 @@
+Tabbed.js Change List
+
+Version 1.02 - Stable
+- Can now use data-default attribute to specify which tab you want to display first.
+- There is currently no feature for specifying default or tab titles through javascript initialisation.
+
+Version 1.01 - Stable
+- Can now have multiple instances of Tabbed on one page.
+- Fixed problems with using ids, now is completely class based.
+
+Version 1.00 - Unstable
+- Initial creation.
+- Tabbed can be initialised using the class of "tabbed" on the container. 
+- Automatically uses one element with a class of "tabbed", selects any directly sub items and turns them into tabs.
+- Uses data-title attribute for tab description.
+- The tab navigation is generated dynamically.
