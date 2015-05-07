@@ -32,5 +32,17 @@ Updates
 - added "animateOnLoad" setting.
 - changed "tabselector" setting to "selector".
 
-=== v1-00 to v1-02 is undocumented  ===
-- information unknown, possible retrieval from svn.
+=== v1-02 ===
+- Can now use data-default attribute to specify which tab you want to display first.
+- There is currently no feature for specifying default or tab titles through javascript initialisation.
+
+=== v1-01 ===
+- Can now have multiple instances of Tabbed on one page.
+- Fixed problems with using ids, now is completely class based.
+
+=== v1-00 ===
+- Initial creation.
+- Tabbed can be initialised using the class of "tabbed" on the container.
+- Automatically uses one element with a class of "tabbed", selects any directly sub items and turns them into tabs.
+- Uses data-title attribute for tab description.
+- The tab navigation is generated dynamically.
