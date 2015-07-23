@@ -11,7 +11,7 @@ Example Tabs HTML:
 
 Settings:
 - selector : '>*' : specify the selector for tabs under the tabbed container
-- animateOnLoad : false : (true=slide the tab buttons into view) (false=show)
+- animate_on_load : false : (true=slide the tab buttons into view) (false=show)
 
 Tab Element Attributes:
 - data-title : apply a description to the button
@@ -19,10 +19,26 @@ Tab Element Attributes:
 - data-default : make this tab the first one to show
 
 
+@@@@@@@@@@@@@
+Things to Add
+@@@@@@@@@@@@@
+
+- Ability to add tabs
+- Ability to remove tabs
+
 
 @@@@@@@
 Updates
 @@@@@@@
+
+=== v1-12 ===
+- changed animateOnLoad to animate_on_load.
+- added onChange event function option.
+- added afterChange event function option.
+- updated data settings parsing method.
+
+=== v1-11 ===
+- changed data names and class attributes to hyphenated.
 
 === v1-10 ===
 - removed checkSettings function (redundant)
