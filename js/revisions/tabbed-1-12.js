@@ -86,9 +86,9 @@
                     var LITabs = '';
                     for (var j=0; j<foundTabs.length; j++)
                     {
-                        LITabs += '<li class="'+foundTabs[j].class_+'"><a href="#" class="tabbed-menu-btn" data-tabbed-id="'+foundTabs[j].id+'">'+foundTabs[j].title+'</a></li>';
+                        LITabs += '<div class="'+foundTabs[j].class_+'"><a href="#" class="tabbed-menu-btn" data-tabbed-id="'+foundTabs[j].id+'">'+foundTabs[j].title+'</a></div>';
                     }
-                    _tabbedContainer.before('<div class="tabbed-menu" style="display:none;"><ul>'+LITabs+'</ul></div>');
+                    _tabbedContainer.before('<div class="tabbed-menu" style="display:none;"><div class="tabbed-menu-wrap">'+LITabs+'</div></div>');
 
                     var defaultShowID = '0';
                     var _defaultShowOb = _tabbedContainer.find(t_settings.selector+'[data-default="true"]');

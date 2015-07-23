@@ -36,6 +36,7 @@ Updates
 - added onChange event function option.
 - added afterChange event function option.
 - updated data settings parsing method.
+- changed menu ul li structure to divs. classes are still the same.
 
 === v1-11 ===
 - changed data names and class attributes to hyphenated.
