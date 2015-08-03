@@ -86,7 +86,7 @@
                     var LITabs = '';
                     for (var j=0; j<foundTabs.length; j++)
                     {
-                        LITabs += '<div class="'+foundTabs[j].class_+'"><a href="#" class="tabbed-menu-btn" data-tabbed-id="'+foundTabs[j].id+'">'+foundTabs[j].title+'</a></div>';
+                        LITabs += '<div class="tabbed-menu-btn '+foundTabs[j].class_+'"><a href="#" data-tabbed-id="'+foundTabs[j].id+'">'+foundTabs[j].title+'</a></div>';
                     }
                     _tabbedContainer.before('<div class="tabbed-menu" style="display:none;"><div class="tabbed-menu-wrap">'+LITabs+'</div></div>');
 
@@ -98,7 +98,7 @@
                     }
 
                     var _tabbedMenu = _tabbedContainer.prev();
-                    _tabbedMenu.find('a.tabbed-menu-btn').each(function(){
+                    _tabbedMenu.find('.tabbed-menu-btn a').each(function(){
 
                         var _tabbedMenuButton = $(this),
                             ftid = _tabbedMenuButton.data('tabbed-id');
@@ -120,7 +120,7 @@
                         }
                     });
 
-                    _tabbedMenu.on('click','a.tabbed-menu-btn',function(e){
+                    _tabbedMenu.on('click','.tabbed-menu-btn a',function(e){
                         e.preventDefault();
                         var _tabbedMenuButton = $(this),
                             ftid = _tabbedMenuButton.data('tabbed-id'),
@@ -138,7 +138,7 @@
                                 }
                             });
 
-                            _tabbedMenu.find('a.tabbed-menu-btn').each(function(){
+                            _tabbedMenu.find('.tabbed-menu-btn a').each(function(){
                                 var $tabbed_menu_item = $(this);
                                 if ($tabbed_menu_item.data('tabbed-id') != ftid)
                                 {
