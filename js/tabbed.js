@@ -4,7 +4,8 @@
         selector:'>*',
         animate_on_load:false,
         onChange:false,
-        afterChange:false
+        afterChange:false,
+        emptyTabTitles:false
     };
 
     $.fn.Tabbed = function(options)
@@ -68,7 +69,7 @@
                     var tabTitle = getAttrString($(this),'data-title');
                     var tabClass = getAttrString($(this),'data-class');
 
-                    if (tabTitle == '') tabTitle = 'Tab '+tabId;
+                    if (tabTitle == '' && !t_settings.emptyTabTitles) tabTitle = 'Tab '+tabId;
 
                     foundTabs.push({
                         id:tabId,
@@ -81,14 +82,14 @@
 
                 if (foundTabs.length)
                 {
-                    var start_tab_shown = false;
-
                     var LITabs = '';
                     for (var j=0; j<foundTabs.length; j++)
                     {
                         LITabs += '<div class="tabbed-menu-btn '+foundTabs[j].class_+'"><a href="#" data-tabbed-id="'+foundTabs[j].id+'">'+foundTabs[j].title+'</a></div>';
                     }
                     _tabbedContainer.before('<div class="tabbed-menu" style="display:none;"><div class="tabbed-menu-wrap">'+LITabs+'</div></div>');
+
+                    var _tabbedMenu = _tabbedContainer.prev();
 
                     var defaultShowID = '0';
                     var _defaultShowOb = _tabbedContainer.find(t_settings.selector+'[data-default="true"]');
@@ -97,28 +98,75 @@
                         defaultShowID = _defaultShowOb.data('tabbed-id');
                     }
 
-                    var _tabbedMenu = _tabbedContainer.prev();
-                    _tabbedMenu.find('.tabbed-menu-btn a').each(function(){
+                    // get hash and set defaultShowID
+                    var tabSetup = function(event){
 
-                        var _tabbedMenuButton = $(this),
-                            ftid = _tabbedMenuButton.data('tabbed-id');
+                        if (event) event.stopImmediatePropagation();
 
-                        if (ftid != '')
+                        var start_tab_shown = false;
+                        var hash = window.location.hash;
+                        if (hash)
                         {
-                            var _tabbedContentItem = _tabbedContainer.find(t_settings.selector+'[data-tabbed-id="'+ftid+'"]');
+                            var hash_match = hash.match(/^#?tabbed-show-(.+)$/);
+                            if (hash_match && hash_match[1])
+                            {
+                                var real_match_id = false;
+                                for (var g=0; g<foundTabs.length; g++)
+                                {
+                                    if (foundTabs[g].title == hash_match[1] || foundTabs[g].title == hash_match[1].replace('-',' '))
+                                    {
+                                        real_match_id = foundTabs[g].id;
+                                        break;
+                                    }
+                                }
 
-                            if (start_tab_shown || (defaultShowID != '0' && ftid != defaultShowID))
-                            {
-                                _tabbedContentItem.hide().removeClass('on');
-                            }
-                            else if (defaultShowID == '0' || ftid == defaultShowID)
-                            {
-                                _tabbedContentItem.show().addClass('on');
-                                _tabbedMenuButton.parent().addClass('on');
-                                start_tab_shown = true;
+                                if (real_match_id === false)
+                                {
+                                    for (var h=0; h<foundTabs.length; h++)
+                                    {
+                                        if (foundTabs[h].id == hash_match[1])
+                                        {
+                                            real_match_id = foundTabs[h].id;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (real_match_id !== false)
+                                {
+                                    defaultShowID = real_match_id;
+                                }
                             }
                         }
-                    });
+
+                        _tabbedMenu.find('.tabbed-menu-btn a').each(function(){
+
+                            var _tabbedMenuButton = $(this),
+                                ftid = _tabbedMenuButton.data('tabbed-id');
+
+                            if (ftid != '')
+                            {
+                                var _tabbedContentItem = _tabbedContainer.find(t_settings.selector+'[data-tabbed-id="'+ftid+'"]');
+
+                                if (start_tab_shown || (defaultShowID != '0' && ftid != defaultShowID))
+                                {
+                                    _tabbedContentItem.hide().removeClass('on');
+                                }
+                                else if (defaultShowID == '0' || ftid == defaultShowID)
+                                {
+                                    _tabbedContentItem.show().addClass('on');
+                                    _tabbedMenuButton.parent().addClass('on');
+                                    start_tab_shown = true;
+                                }
+                            }
+                        });
+                    };
+                    tabSetup();
+
+                    if ("addEventListener" in window && "onhashchange" in window)
+                    {
+                        window.addEventListener("hashchange",tabSetup,false);
+                    }
 
                     _tabbedMenu.on('click','.tabbed-menu-btn a',function(e){
                         e.preventDefault();
